@@ -9,7 +9,7 @@
 common_app = search("aws_opsworks_app", "name:common").first
 mysql_root_pass = common_app[:environment][:DBPassword]
 mysql_username = common_app[:environment][:DBUsername]
-mysql_root_pass = common_app[:environment][:DBPassword]
+mysql_password = common_app[:environment][:DBPassword]
 
 
 docker_service 'default' do
@@ -40,7 +40,7 @@ docker_container "wordpress-app" do
   repo "wordpress"
   tag "php7.2-apache"
   volumes ["/opt/wordpress/wordpress-app/wp-content:/var/www/html/wp-content" ]
-  env ["WORDPRESS_DB_USER=#{mysql_username}", "MYSQL_USER=#{mysql_username}", "WORDPRESS_DB_PASSWORD=#{mysql_password}" ]
+  env ["WORDPRESS_DB_USER=#{mysql_username}", "WORDPRESS_DB_PASSWORD=#{mysql_password}" ]
   links ['mysql-wordpress:mysql']
   port '8080:80'
   restart_policy 'always'
