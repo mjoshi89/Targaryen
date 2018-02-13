@@ -1,13 +1,11 @@
 # common Cookbook
 
-TODO: Enter the cookbook description here.
+This cookbook installs the wordpress, mysql, influxdb, grafana and telegraf containers.
 
-e.g.
-This cookbook makes your favorite breakfast sandwich.
 
 ## Requirements
 
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
+It depends on docker cookbook to manage the docker containers.
 
 e.g.
 ### Platforms
@@ -16,7 +14,7 @@ e.g.
 
 ### Chef
 
-- Chef 12.0 or later
+- Chef 12.5 or later
 
 ### Cookbooks
 
@@ -76,5 +74,5 @@ e.g.
 
 ## License and Authors
 
-Authors: TODO: List authors
+Authors: Manish Joshi
 
