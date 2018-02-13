@@ -4,7 +4,7 @@ This repository if to bring up a wordpress server along with a monitoring server
 
 You can use the cloudformation template to bring up all the required resources for the same. The cloudformation will spin up a t2-medium instance and with the help of chef recepies it'll install wordpress + mysql container as well as telgraf + influxdb + grafana containers.
 
-Once cloudformation is complete, please go to the output section and grab the public ip of the instance that was created. In your brower please go to http://<public-ip> to visit wordpress site and http://<public-ip>:3000 to visit the grafana dashboard with all metrics being monitored there. 
+Once cloudformation is complete, please go to the output section and grab the public ip of the instance that was created. In your brower please go to http://<public-ip>:8080 to visit wordpress site and http://<public-ip>:3000 to visit the grafana dashboard with all metrics being monitored there. 
 
 It is easy to scale up this solution to separate out the different layers but I haven't done that considering the cost involved.
 
