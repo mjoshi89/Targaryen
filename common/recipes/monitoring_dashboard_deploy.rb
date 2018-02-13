@@ -52,14 +52,14 @@ docker_container "influxdb" do
   tag "1.4"
   volumes ["/opt/influxdb/data:/var/lib/influxdb", "/opt/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro" ]
   env ["INFLUXDB_ADMIN_PASSWORD=#{influxdb_admin_password}", "INFLUXDB_ADMIN_USER=#{influxdb_admin_username}", "INFLUXDB_USER_PASSWORD=#{influxdb_password}", "INFLUXDB_USER=#{influxdb_username}", "INFLUXDB_DB=telegraf", "INFLUXDB_ADMIN_ENABLED=true" ]
-  port '8086:8086'
+  network_mode 'host'
   restart_policy 'always'
   action :run
 end
 
 docker_container "grafana" do
   repo "grafana/grafana"
-  port '3000:3000'
+  network_mode 'host'
   restart_policy 'always'
   action :run
 end

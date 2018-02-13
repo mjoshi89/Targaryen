@@ -37,8 +37,8 @@ docker_container "telegraf" do
   repo "telegraf"
   tag "1.5"
   volumes ["/opt/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro", "/var/run/docker.sock:/var/run/docker.sock" ]
-  port '8094:8094'
   host_name "#{hostname}"
+  network_mode 'host'
   restart_policy 'always'
   action :run
 end

@@ -34,6 +34,7 @@ docker_container "mysql-wordpress" do
   tag "5.7"
   volumes ["/opt/mysql/datadir:/var/lib/mysql" ]
   env ["MYSQL_ROOT_PASSWORD=#{mysql_root_pass}", "MYSQL_DATABASE=wordpress", "MYSQL_USER=#{mysql_username}", "MYSQL_PASSWORD=#{mysql_password}" ]
+  network_mode 'host'
   restart_policy 'always'
   action :run
 end
@@ -44,7 +45,7 @@ docker_container "wordpress-app" do
   volumes ["/opt/wordpress/wordpress-app/wp-content:/var/www/html/wp-content" ]
   env ["WORDPRESS_DB_USER=#{mysql_username}", "WORDPRESS_DB_PASSWORD=#{mysql_password}" ]
   links ['mysql-wordpress:mysql']
-  port '8080:80'
+  network_mode 'host'
   restart_policy 'always'
   action :run
 end
