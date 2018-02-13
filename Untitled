@@ -1,0 +1,47 @@
+Q1) About chef --> notify , general
+
+Q2) MySQL --> replication, schema update, backups
+
+Q3) linux -->
+
+Q4) Applciation monitoring --> Java metrics.
+
+Q4)
+
+docker pull wordpress:php7.2-apache
+docker pull mysql:5.7
+
+mkdir /tmp/wordpress/datadir
+
+mkdir /tmp/wordpress/wp-content
+
+docker run --name wordpress-mysql -e MYSQL_ROOT_PASSWORD=my-secret-password -e MYSQL_DATABASE=wordpress \
+-e MYSQL_USER=wordpress_user -e MYSQL_PASSWORD=wordpress_password -v /tmp/wordpress/mysql/datadir:/var/lib/mysql -d mysql:5.7
+
+
+docker run --name wordpress --link wordpress-mysql:mysql -e WORDPRESS_DB_USER=wordpress_user -e WORDPRESS_DB_PASSWORD=wordpress_password -p 8080:80 -v /tmp/wordpress/wordpress-app/wp-content:/var/www/html/wp-content -d wordpress:php7.2-apache
+
+
+docker pull influxdb:1.4
+docker pull telegraf:1.5
+docker pull grafana/grafana
+
+mkdir /tmp/monitoring/influxdb
+
+mkdir /tmp/monitoring/telegraf/
+
+docker run -d --name influxdb -e INFLUXDB_DB=telegraf -e INFLUXDB_ADMIN_ENABLED=true \
+-e INFLUXDB_ADMIN_USER=admin -e INFLUXDB_ADMIN_PASSWORD=supersecretpassword \
+-e INFLUXDB_USER=telegraf -e INFLUXDB_USER_PASSWORD=secretpassword \
+-p 8086:8086 -v /tmp/monitoring/influxdb:/var/lib/influxdb -v /tmp/monitoring/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro influxdb:1.4
+
+
+docker run --name telegraf -v /tmp/monitoring/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro -v /var/run/docker.sock:/var/run/docker.sock -p 8094:8094 -d telegraf:1.5
+
+docker run -d --name=grafana -p 3000:3000 grafana/grafana
+
+
+curl --user admin:admin 'http://localhost:3000/api/datasources' -X POST -H 'Content-Type: application/json;charset=UTF-8' --data-binary '{"name":"telegraf1","isDefault":true ,"type":"influxdb","url":"http://localhost:8086","database":"telegraf","access":"proxy","basicAuth":false}'
+
+
+curl --user admin:admin 'http://localhost:3000/api/dashboards/import' -X POST -H 'Content-Type: application/json' -d '@docker-metrics-per-container_rev2.json'
