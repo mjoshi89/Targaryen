@@ -64,6 +64,10 @@ docker_container "grafana" do
   action :run
 end
 
+docker_service 'default' do
+  action [:restart]
+end
+
 bash "Grafana init" do
     code <<-EOH
     curl --user admin:admin 'http://#{pub_ip}:3000/api/datasources' -X POST -H 'Content-Type: application/json;charset=UTF-8' --data-binary '{"name":"telegraf","isDefault":true ,"type":"influxdb","url":"http://#{pub_ip}:8086","database":"telegraf","access":"proxy","basicAuth":false}'
