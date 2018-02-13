@@ -322,7 +322,7 @@
                   "IpProtocol":"tcp",
                   "FromPort":"8080",
                   "ToPort":"8080",
-                  "CidrIpv6":"::0"
+                  "CidrIpv6":"::/0"
                }
             ]
          }
@@ -378,13 +378,13 @@
                   "IpProtocol":"tcp",
                   "FromPort":"3000",
                   "ToPort":"3000",
-                  "CidrIpv6":"::0"
+                  "CidrIpv6":"::/0"
                },
                {
                   "IpProtocol":"tcp",
                   "FromPort":"8086",
                   "ToPort":"8086",
-                  "CidrIpv6":"::0"
+                  "CidrIpv6":"::/0"
                },
                {
                   "IpProtocol":"tcp",
