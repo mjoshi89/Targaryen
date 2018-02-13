@@ -323,6 +323,15 @@
                   "FromPort":"8080",
                   "ToPort":"8080",
                   "CidrIp":"0.0.0.0/0"
+               },
+               {
+                  "IpProtocol":"tcp",
+                  "FromPort":"3306",
+                  "ToPort":"3306",
+                  "SourceSecurityGroupId":
+                  {
+                     "Ref":"wordpressSecurityGroup"
+                  }
                }
             ]
          }
@@ -378,10 +387,7 @@
                   "IpProtocol":"tcp",
                   "FromPort":"8086",
                   "ToPort":"8086",
-                  "SourceSecurityGroupId":
-                  {
-                     "Ref":"wordpressSecurityGroup"
-                  }
+                  "CidrIp":"0.0.0.0/0"
                }
             ]
          }
