@@ -16,13 +16,14 @@ docker_service 'default' do
   action [:create, :start]
 end
 
-docker_image 'telegraf:1.5' do
+docker_image 'telegraf' do
+  tag "#{node['telegraf']['release_version']}"
   action :pull
 end
 
-create_dir("/opt/telegraf",0777)
+create_dir("#{node['common']['install_path']}/telegraf",0777)
 
-template "/opt/telegraf/telegraf.conf" do
+template "#{node['common']['install_path']}/telegraf/telegraf.conf" do
   source 'telegraf.conf.erb'
   variables({
     :influxdb_url => "#{influxdb_url}"
@@ -35,8 +36,8 @@ end
 
 docker_container "telegraf" do
   repo "telegraf"
-  tag "1.5"
-  volumes ["/opt/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro", "/var/run/docker.sock:/var/run/docker.sock" ]
+  tag "#{node['telegraf']['release_version']}"
+  volumes ["#{node['common']['install_path']}/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro", "/var/run/docker.sock:/var/run/docker.sock" ]
   port '8094:8094'
   host_name "#{hostname}"
   restart_policy 'always'

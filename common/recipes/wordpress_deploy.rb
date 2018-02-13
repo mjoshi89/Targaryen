@@ -17,22 +17,22 @@ docker_service 'default' do
 end
 
 docker_image 'wordpress' do
-  tag 'php7.2-apache'
+  tag "#{node['wordpress']['release_version']}"
   action :pull
 end
 
 docker_image 'mysql' do
-  tag '5.7'
+  tag "#{node['mysql']['release_version']}"
   action :pull
 end
 
-create_dir("/opt/mysql/datadir",0777)
-create_dir("/opt/wordpress/wp-content",0777)
+create_dir("#{node['common']['install_path']}/mysql/datadir",0777)
+create_dir("#{node['common']['install_path']}/wordpress/wp-content",0777)
 
 docker_container "mysql-wordpress" do
   repo "mysql"
-  tag "5.7"
-  volumes ["/opt/mysql/datadir:/var/lib/mysql" ]
+  tag "#{node['mysql']['release_version']}"
+  volumes ["#{node['common']['install_path']}/mysql/datadir:/var/lib/mysql" ]
   env ["MYSQL_ROOT_PASSWORD=#{mysql_root_pass}", "MYSQL_DATABASE=wordpress", "MYSQL_USER=#{mysql_username}", "MYSQL_PASSWORD=#{mysql_password}" ]
   restart_policy 'always'
   action :run
@@ -40,8 +40,8 @@ end
 
 docker_container "wordpress-app" do
   repo "wordpress"
-  tag "php7.2-apache"
-  volumes ["/opt/wordpress/wordpress-app/wp-content:/var/www/html/wp-content" ]
+  tag "#{node['wordpress']['release_version']}"
+  volumes ["#{node['common']['install_path']}/wordpress/wordpress-app/wp-content:/var/www/html/wp-content" ]
   env ["WORDPRESS_DB_USER=#{mysql_username}", "WORDPRESS_DB_PASSWORD=#{mysql_password}" ]
   links ['mysql-wordpress:mysql']
   port '8080:80'
