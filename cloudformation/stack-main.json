@@ -220,7 +220,7 @@
             "CustomCookbooksSource":{
                "Revision":"master",
                "Type":"git",
-               "Url":"git@github.com:targaryen.git"
+               "Url":"https://github.com/mjoshi89/targaryen"
             },
             "VpcId":{
                "Ref":"myVPC"
