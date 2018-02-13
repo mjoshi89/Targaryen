@@ -412,17 +412,14 @@
          },
          "Description":"Default VPC security group name."
       },
-      "OpsWorksSubnetARN":{
+      "WordpressInstancePublicIP":{
          "Value":{
-            "Ref":"mySubnet"
+            "Fn::GetAtt":[
+               "wordpressInstance",
+               "PublicIp"
+            ]
          },
-         "Description":"ARN of subnet that is created."
-      },
-      "OpsWorksVPCARN":{
-         "Value":{
-            "Ref":"myVPC"
-         },
-         "Description":"ARN of VPC that is created."
+         "Description":"Public Ip of the instance created."
       },
       "OpsWorksStackName":{
          "Value":{
