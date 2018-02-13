@@ -19,7 +19,8 @@ docker_service 'default' do
   action [:create, :start]
 end
 
-docker_image 'influxdb:1.4' do
+docker_image 'influxdb' do
+  tag '1.4'
   action :pull
 end
 

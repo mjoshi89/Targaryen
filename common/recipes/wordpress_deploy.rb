@@ -16,11 +16,13 @@ docker_service 'default' do
   action [:create, :start]
 end
 
-docker_image 'wordpress:php7.2-apache' do
+docker_image 'wordpress' do
+  tag 'php7.2-apache'
   action :pull
 end
 
-docker_image 'mysql:5.7' do
+docker_image 'mysql' do
+  tag '5.7'
   action :pull
 end
 
