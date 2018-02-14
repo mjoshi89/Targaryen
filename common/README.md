@@ -5,7 +5,7 @@ This cookbook installs the wordpress, mysql, influxdb, grafana and telegraf cont
 
 ## Requirements
 
-It depends on docker cookbook to manage the docker containers.
+It depends on chef community provided docker cookbook to manage the docker containers.
 
 e.g.
 ### Platforms
