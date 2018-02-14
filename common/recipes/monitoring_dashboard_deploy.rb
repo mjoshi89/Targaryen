@@ -11,6 +11,8 @@ influxdb_admin_username = common_app[:environment][:DBUsername]
 influxdb_admin_password = common_app[:environment][:DBPassword]
 influxdb_username = common_app[:environment][:DBUsername]
 influxdb_password = common_app[:environment][:DBPassword]
+grafana_admin_password = common_app[:environment][:GrafanaPassword]
+grafana_admin_username = common_app[:environment][:GrafanaUsername]
 instance = search("aws_opsworks_instance", "self:true").first
 pub_ip = instance[:public_ip]
 
@@ -28,9 +30,9 @@ docker_image 'grafana/grafana' do
   action :pull
 end
 
-create_dir("#{node['common']['install_path']}/influxdb/data",0777)
+create_dir("#{node['common']['install_path']}/influxdb/data",0750)
 
-create_dir("#{node['common']['install_path']}/grafana",0777)
+create_dir("#{node['common']['install_path']}/grafana",0750)
 
 cookbook_file "#{node['common']['install_path']}/influxdb/influxdb.conf" do
     source "default/influxdb.conf"
@@ -59,6 +61,8 @@ end
 
 docker_container "grafana" do
   repo "grafana/grafana"
+  volumes ["#{node['common']['install_path']}/grafana:/var/lib/grafana" ]
+  env ["GF_SECURITY_ADMIN_PASSWORD=#{grafana_admin_password}", "GF_SECURITY_ADMIN_USER=#{grafana_admin_username}"]
   port '3000:3000'
   restart_policy 'always'
   action :run

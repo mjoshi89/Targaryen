@@ -20,6 +20,17 @@
          "Description":"Password of mysql and influxdb  Database.",
          "Type":"String",
          "NoEcho":"true"
+      },
+      "GrafanaUsername":{
+         "Default":"htadmin",
+         "Description":"Username of Grafana UI.",
+         "Type":"String",
+         "NoEcho":"true"
+      },
+      "GrafanaPassword":{
+         "Description":"Password of Grafana UI.",
+         "Type":"String",
+         "NoEcho":"true"
       }
    },
    "Resources":{
@@ -249,6 +260,20 @@
                   "Key":"DBPassword",
                   "Value":{
                      "Ref":"DBPassword"
+                  },
+                  "Secure":"true"
+               },
+               {
+                  "Key":"GrafanaUsername",
+                  "Value":{
+                     "Ref":"GrafanaUsername"
+                  },
+                  "Secure":"true"
+               },
+               {
+                  "Key":"GrafanaPassword",
+                  "Value":{
+                     "Ref":"GrafanaPassword"
                   },
                   "Secure":"true"
                }

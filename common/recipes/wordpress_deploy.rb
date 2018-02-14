@@ -26,8 +26,8 @@ docker_image 'mysql' do
   action :pull
 end
 
-create_dir("#{node['common']['install_path']}/mysql/datadir",0777)
-create_dir("#{node['common']['install_path']}/wordpress/wp-content",0777)
+create_dir("#{node['common']['install_path']}/mysql/datadir",0750)
+create_dir("#{node['common']['install_path']}/wordpress/wp-content",0750)
 
 docker_container "mysql-wordpress" do
   repo "mysql"
