@@ -27,6 +27,7 @@ docker_image 'influxdb' do
 end
 
 docker_image 'grafana/grafana' do
+  tag "#{node['grafana']['release_version']}"
   action :pull
 end
 
