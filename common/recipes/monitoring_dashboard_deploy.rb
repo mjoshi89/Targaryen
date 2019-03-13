@@ -61,6 +61,7 @@ end
 
 docker_container "grafana" do
   repo "grafana/grafana"
+  tag "#{node['grafana']['release_version']}"
   volumes ["#{node['common']['install_path']}/grafana:/var/lib/grafana" ]
   env ["GF_SECURITY_ADMIN_PASSWORD=#{grafana_admin_password}", "GF_SECURITY_ADMIN_USER=#{grafana_admin_username}"]
   port '3000:3000'
