@@ -166,7 +166,7 @@
                   ]
                ]
             },
-            "AvailabilityZone":"us-east-1b",
+            "AvailabilityZone":"eu-west-2a",
             "MapPublicIpOnLaunch":"true",
             "Tags":[
                {
@@ -366,7 +366,7 @@
                   "Ref":"wordpressLayer"
                }
             ],
-            "InstanceType":"t2.medium"
+            "InstanceType":"t2.large"
          }
       },
       "monitoringSecurityGroup":{
