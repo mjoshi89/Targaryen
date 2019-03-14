@@ -14,6 +14,7 @@ ruby_block 'chaos_deployment' do
         end
         n = n-1
       end
+      return 0
     end
     n = rand(1..12)
     deploy(n)
